@@ -1,0 +1,41 @@
+:root {
+  --nav-height: 3rem;
+  --nav-padding: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+  height: 100%;
+  font-family: Helvetica, sans-serif;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+body {
+  display: grid;
+  grid-template:
+    "nav" var(--nav-height)
+    "canvas" auto / auto;
+  height: 100%;
+}
+
+nav {
+  grid-area: nav;
+  line-height: var(--nav-height);
+  padding: 0 var(--nav-padding);
+}
+
+canvas {
+  grid-area: canvas;
+}
