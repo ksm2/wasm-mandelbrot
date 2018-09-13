@@ -1,0 +1,26 @@
+{
+  "name": "wasm-mandelbrot",
+  "version": "1.0.0",
+  "description": "Mandelbrot generator implemented using TypeScript and Rust with WebAssembly",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ksm2/wasm-mandelbrot.git"
+  },
+  "keywords": [
+    "mandelbrot",
+    "webassembly",
+    "wasm",
+    "rust",
+    "typescript"
+  ],
+  "author": "Konstantin Simon Maria Möllers <ksm.moellers@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ksm2/wasm-mandelbrot/issues"
+  },
+  "homepage": "https://github.com/ksm2/wasm-mandelbrot#readme"
+}
