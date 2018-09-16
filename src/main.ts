@@ -10,9 +10,9 @@ window.addEventListener('load', () => {
   }
 
   // Update canvasses width and height
-  const [width, height] = [450, 300]
-  canvas.width = width
-  canvas.height = height
+  const { offsetWidth: width, offsetHeight: height } = container
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight - 48
 
   // Render the fractal
   const calculator = new JavascriptCalculator()
@@ -21,4 +21,9 @@ window.addEventListener('load', () => {
   const now = performance.now()
   fractal.render()
   console.log(`Mandelbrot generated in ${performance.now() - now}ms using JavaScript`)
+
+  window.addEventListener('resize', () => {
+    // Update canvasses width and height
+    fractal.resize(window.innerWidth, window.innerHeight - 48)
+  })
 })

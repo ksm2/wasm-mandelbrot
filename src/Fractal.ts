@@ -11,7 +11,7 @@ function rgba(pixel: Uint8ClampedArray, offset: number, red: number, green: numb
 export class Fractal {
   private readonly canvas: HTMLCanvasElement
   private readonly calculator: Calculator
-  private x: number = 0
+  private x: number = 0.5
   private y: number = 0
 
   constructor(canvas: HTMLCanvasElement, calculator: Calculator) {
@@ -51,8 +51,9 @@ export class Fractal {
 
   private convertCoordinates(x: number, y: number) {
     const { width, height } = this.canvas
+    const [cw, ch] = [x - width / 2, height / 2 - y]
     const factor = Math.max(3 / width, 2 / height)
-    return [(x - this.x) * factor - 2, (height - y + this.y) * factor - 1]
+    return [cw * factor - this.x, ch * factor - this.y]
   }
 
   private colorize(index: number, pixel: Uint8ClampedArray, offset: number) {
