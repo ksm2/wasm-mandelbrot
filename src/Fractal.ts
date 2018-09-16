@@ -1,11 +1,33 @@
 import { Calculator, IN_MANDELBROT_SET } from './Calculator'
 
+type BlendStop = [number, number, number, number]
+
 function rgba(pixel: Uint8ClampedArray, offset: number, red: number, green: number, blue: number, alpha = 255) {
   pixel[offset] = red
   pixel[offset += 1] = green
   pixel[offset += 1] = blue
   pixel[offset += 1] = alpha
   return offset + 1
+}
+
+function blend(pixel: Uint8ClampedArray, offset: number, index: number, ...blendStops: BlendStop[]) {
+  const iterator = blendStops[Symbol.iterator]()
+  const { done, value } = iterator.next()
+  if (done) throw new Error(`A final blend step is missing for index ${index}.`)
+  let [from, r1, g1, b1] = value
+
+  for (const [to, r2, g2, b2] of iterator) {
+    if (index >= from && index < to) {
+      const f = (index - from) / (to - from)
+      const g = 1 - f
+
+      return rgba(pixel, offset, Math.round(r1 * g + r2 * f), Math.round(g1 * g + g2 * f), Math.round(b1 * g + b2 * f))
+    }
+
+    [from, r1, g1, b1] = [to, r2, g2, b2]
+  }
+
+  throw new Error(`No matching blend step found for index ${index}.`)
 }
 
 export class Fractal {
@@ -61,6 +83,17 @@ export class Fractal {
       return rgba(pixel, offset, 0, 0, 0)
     }
 
-    return rgba(pixel, offset, 255, 255, 255, 0)
+    return blend(
+      pixel,
+      offset,
+      index,
+      [0, 0x22, 0x22, 0xBB],
+      [20, 0x88, 0x88, 0xFF],
+      [40, 0xFF, 0xFF, 0xFF],
+      [60, 0xFF, 0xFF, 0x00],
+      [80, 0xFF, 0x88, 0x00],
+      [100, 0x88, 0xFF, 0x00],
+      [120, 0x00, 0xFF, 0x00],
+    )
   }
 }
