@@ -86,7 +86,7 @@ export class Fractal {
     return blend(
       pixel,
       offset,
-      index,
+      index % 100,
       [0, 0x22, 0x22, 0xBB],
       [20, 0x88, 0x88, 0xFF],
       [40, 0xFF, 0xFF, 0xFF],

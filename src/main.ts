@@ -1,7 +1,9 @@
-import { JavascriptCalculator } from './Calculator'
+import { JavaScriptCalculator, WebAssemblyCalculator } from './Calculator'
 import { Fractal } from './Fractal'
 
-window.addEventListener('load', () => {
+const wasm = import('mandelbrot')
+
+window.addEventListener('load', async () => {
   // Retrieve HTML elements
   const container = document.querySelector('#canvas-container') as HTMLDivElement | null
   const canvas = document.querySelector('canvas')
@@ -15,12 +17,13 @@ window.addEventListener('load', () => {
   canvas.height = window.innerHeight - 48
 
   // Render the fractal
-  const calculator = new JavascriptCalculator()
+  const calculator = new JavaScriptCalculator()
+  // const calculator = new WebAssemblyCalculator(await wasm)
   const fractal = new Fractal(canvas, calculator)
 
   const now = performance.now()
   fractal.render()
-  console.log(`Mandelbrot generated in ${performance.now() - now}ms using JavaScript`)
+  console.log(`Mandelbrot generated in ${performance.now() - now}ms using ${calculator.name}`)
 
   window.addEventListener('resize', () => {
     // Update canvasses width and height

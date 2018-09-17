@@ -5,5 +5,12 @@
 # NPM
 node_modules/
 
+# Rust
+target/
+pkg/
+**/*.rs.bk
+Cargo.lock
+
 # Build
 dist/
+*.log

@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "npm run build:wasm && npm run build:webpack",
+    "build:webpack": "webpack --config webpack.prod.js",
+    "build:wasm": "wasm-pack init --mode no-install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

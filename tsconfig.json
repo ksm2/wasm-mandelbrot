@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "strict": true,
-    "module": "es6",
-    "target": "es2018"
+    "module": "esnext",
+    "target": "es2018",
+    "moduleResolution": "node"
   }
 }
