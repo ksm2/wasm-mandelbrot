@@ -57,10 +57,11 @@ export class Fractal {
 
     // Create a writable pixel
     const pixel = buffer.data
+    const factor = Math.max(3 / width, 2 / height)
     let offset = 0
-    for (let j = 0; j < height; j += 1) {
-      for (let i = 0; i < width; i += 1) {
-        const [real, imaginary] = this.convertCoordinates(i, j)
+    for (let j = height / 2; j > -height / 2; j -= 1) {
+      for (let i = -width / 2; i < width / 2; i += 1) {
+        const [real, imaginary] = [i * factor - this.x, j * factor - this.y]
         const index = this.calculator.calculate(real, imaginary)
 
         offset = this.colorize(index, pixel, offset)
@@ -69,13 +70,6 @@ export class Fractal {
 
     // Swap the buffer
     ctx.putImageData(buffer, 0, 0)
-  }
-
-  private convertCoordinates(x: number, y: number) {
-    const { width, height } = this.canvas
-    const [cw, ch] = [x - width / 2, height / 2 - y]
-    const factor = Math.max(3 / width, 2 / height)
-    return [cw * factor - this.x, ch * factor - this.y]
   }
 
   private colorize(index: number, pixel: Uint8ClampedArray, offset: number) {
