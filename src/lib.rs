@@ -9,14 +9,11 @@ use wasm_bindgen::prelude::*;
 extern {
 }
 
-const MAX_STEPS: i32 = 1_000;
-const IN_MANDELBROT_SET: i32 = -1;
-
 #[wasm_bindgen]
-pub fn calculate(real: f64, imaginary: f64) -> i32 {
+pub fn calculate(max_steps: i32, in_mandelbrot_set: i32, real: f64, imaginary: f64) -> i32 {
   let mut zr = 0.0;
   let mut zi = 0.0;
-  for s in 0..MAX_STEPS {
+  for s in 0..max_steps {
     // Is the current step out of bounds?
     let rr = zr * zr;
     if rr > 4.0 {
@@ -37,5 +34,5 @@ pub fn calculate(real: f64, imaginary: f64) -> i32 {
   }
 
   // Never left the bounds? We are in the Mandelbrot Set
-  return IN_MANDELBROT_SET
+  return in_mandelbrot_set
 }
