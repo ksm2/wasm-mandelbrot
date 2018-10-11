@@ -23,7 +23,9 @@ export class Fractal {
     const ctx = this.canvas.getContext('2d')!
 
     // Draw to a buffer
+    const now = performance.now()
     const pixels = this.calculator.calculate(x, y, width, height)
+    console.log(`Mandelbrot generated in ${performance.now() - now}ms using ${this.calculator.name}`)
     const buffer = new ImageData(new Uint8ClampedArray(pixels), width, height)
 
     // Swap the buffer

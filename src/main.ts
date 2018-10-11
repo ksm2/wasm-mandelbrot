@@ -22,9 +22,7 @@ window.addEventListener('load', async () => {
   const calculator = new Calculator('WebAssembly', await wasm)
   const fractal = new Fractal(canvas, calculator)
 
-  const now = performance.now()
   fractal.render()
-  console.log(`Mandelbrot generated in ${performance.now() - now}ms using ${calculator.name}`)
 
   window.addEventListener('resize', () => {
     // Update canvasses width and height
