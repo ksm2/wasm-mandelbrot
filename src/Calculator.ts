@@ -1,4 +1,4 @@
-export const MAX_STEPS = 1_000
+export const MAX_STEPS = 40
 
 interface CalculatingModule {
   calculate(maxSteps: number, pixels: Uint8Array, x: number, y: number, width: number, height: number): void;
