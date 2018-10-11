@@ -6,6 +6,10 @@ authors = ["Konstantin Simon Maria Möllers <ksm.moellers@gmail.com>"]
 [build]
 target = "wasm32-unknown-unknown"
 
+[profile.release]
+debug = false
+lto = true
+
 [lib]
 crate-type = ["cdylib"]
 
