@@ -1,4 +1,6 @@
-export function calculate(maxSteps: number, inMandelbrotSet: number, pixel: Uint8Array, x: number, y: number, width: number, height: number): void {
+const IN_MANDELBROT_SET = -1
+
+export function calculate(maxSteps: number, pixel: Uint8Array, x: number, y: number, width: number, height: number): void {
   const factor = Math.max(3 / width, 2 / height)
   const wh = Math.floor(width / 2)
   const hh = Math.floor(height / 2)
@@ -7,14 +9,14 @@ export function calculate(maxSteps: number, inMandelbrotSet: number, pixel: Uint
     for (let i = -wh; i < wh; i += 1) {
       const real = i * factor - x
       const imaginary = j * factor - y
-      const index = calculatePixel(maxSteps, inMandelbrotSet, real, imaginary)
+      const index = calculatePixel(maxSteps, real, imaginary)
 
-      offset = colorize(inMandelbrotSet, index, pixel, offset)
+      offset = colorize(index, pixel, offset)
     }
   }
 }
 
-export function calculatePixel(maxSteps: number, inMandelbrotSet: number, real: number, imaginary: number): number {
+export function calculatePixel(maxSteps: number, real: number, imaginary: number): number {
   let [zr, zi] = [0, 0]
   for (let s = 0; s < maxSteps; s += 1) {
     // Is the current step out of bounds?
@@ -30,11 +32,11 @@ export function calculatePixel(maxSteps: number, inMandelbrotSet: number, real: 
   }
 
   // Never left the bounds? We are in the Mandelbrot Set
-  return inMandelbrotSet
+  return IN_MANDELBROT_SET
 }
 
-function colorize(inMandelbrotSet: number, index: number, pixel: Uint8Array, offset: number): number {
-  if (index === inMandelbrotSet) {
+function colorize(index: number, pixel: Uint8Array, offset: number): number {
+  if (index === IN_MANDELBROT_SET) {
     return rgba(pixel, offset, 0, 0, 0)
   }
   return rgba(pixel, offset, 255, 255, 255)

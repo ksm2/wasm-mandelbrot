@@ -5,12 +5,14 @@ mod utils;
 
 use wasm_bindgen::prelude::*;
 
+const IN_MANDELBROT_SET: i32 = -1;
+
 #[wasm_bindgen]
 extern {
 }
 
 #[wasm_bindgen]
-pub fn calculate(max_steps: i32, in_mandelbrot_set: i32, pixels: &mut [u8], x: f64, y: f64, width: i32, height: i32) {
+pub fn calculate(max_steps: i32, pixels: &mut [u8], x: f64, y: f64, width: i32, height: i32) {
   let factor = max(3.0 / width as f64, 2.0 / height as f64);
   let wh = width / 2;
   let hh = height / 2;
@@ -19,14 +21,14 @@ pub fn calculate(max_steps: i32, in_mandelbrot_set: i32, pixels: &mut [u8], x: f
     for i in -wh..wh {
       let real = i as f64 * factor - x;
       let imaginary = j as f64 * factor - y;
-      let index = calculate_pixel(max_steps, in_mandelbrot_set, real, imaginary);
+      let index = calculate_pixel(max_steps, real, imaginary);
 
-      offset = colorize(in_mandelbrot_set, index, pixels, offset)
+      offset = colorize(index, pixels, offset)
     }
   }
 }
 
-fn calculate_pixel(max_steps: i32, in_mandelbrot_set: i32, real: f64, imaginary: f64) -> i32 {
+fn calculate_pixel(max_steps: i32, real: f64, imaginary: f64) -> i32 {
   let mut zr = 0.0;
   let mut zi = 0.0;
   for s in 0..max_steps {
@@ -50,11 +52,11 @@ fn calculate_pixel(max_steps: i32, in_mandelbrot_set: i32, real: f64, imaginary:
   }
 
   // Never left the bounds? We are in the Mandelbrot Set
-  return in_mandelbrot_set
+  return IN_MANDELBROT_SET
 }
 
-fn colorize(in_mandelbrot_set: i32, index: i32, pixels: &mut [u8], offset: usize) -> usize {
-  if index == in_mandelbrot_set {
+fn colorize(index: i32, pixels: &mut [u8], offset: usize) -> usize {
+  if index == IN_MANDELBROT_SET {
     rgba(pixels, offset, 0, 0, 0)
   } else {
     rgba(pixels, offset, 255, 255, 255)
