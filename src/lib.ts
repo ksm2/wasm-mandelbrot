@@ -1,10 +1,12 @@
 export function calculate(maxSteps: number, inMandelbrotSet: number, pixel: Uint8Array, x: number, y: number, width: number, height: number): void {
   const factor = Math.max(3 / width, 2 / height)
   const wh = Math.floor(width / 2)
+  const hh = Math.floor(height / 2)
   let offset = 0
-  for (let j = height / 2; j > -height / 2; j -= 1) {
-    for (let i = -wh; i < wh + 1; i += 1) {
-      const [real, imaginary] = [i * factor - x, j * factor - y]
+  for (let j = -hh; j < hh; j += 1) {
+    for (let i = -wh; i < wh; i += 1) {
+      const real = i * factor - x
+      const imaginary = j * factor - y
       const index = calculatePixel(maxSteps, inMandelbrotSet, real, imaginary)
 
       offset = colorize(inMandelbrotSet, index, pixel, offset)

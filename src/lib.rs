@@ -10,17 +10,15 @@ extern {
 }
 
 #[wasm_bindgen]
-pub fn calculate(max_steps: i32, in_mandelbrot_set: i32, pixels: &mut [u8], x: i32, y: i32, width: i32, height: i32) {
-  let fx = x as f64;
-  let fy = y as f64;
+pub fn calculate(max_steps: i32, in_mandelbrot_set: i32, pixels: &mut [u8], x: f64, y: f64, width: i32, height: i32) {
   let factor = max(3.0 / width as f64, 2.0 / height as f64);
   let wh = width / 2;
   let hh = height / 2;
   let mut offset = 0;
   for j in -hh..hh {
-    for i in -wh..=wh {
-      let real = i as f64 * factor - fx;
-      let imaginary = j as f64 * factor - fy;
+    for i in -wh..wh {
+      let real = i as f64 * factor - x;
+      let imaginary = j as f64 * factor - y;
       let index = calculate_pixel(max_steps, in_mandelbrot_set, real, imaginary);
 
       offset = colorize(in_mandelbrot_set, index, pixels, offset)
