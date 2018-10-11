@@ -63,7 +63,7 @@ fn calculate_pixel(max_steps: i32, real: f64, imaginary: f64) -> (i32, f64, f64)
 
 fn colorize(palette: &Vec<Color>, max_steps: i32, index: i32, rr: f64, ii: f64, pixels: &mut [u8], offset: usize) -> usize {
   if index == IN_MANDELBROT_SET {
-    return rgba(pixels, offset, (0, 0, 0));
+    return plot(pixels, offset, (0, 0, 0));
   }
 
   let frac = ((rr + ii).log2() / 2.0).log2();
@@ -74,10 +74,10 @@ fn colorize(palette: &Vec<Color>, max_steps: i32, index: i32, rr: f64, ii: f64, 
 
   let c1 = palette[lower];
   let c2 = palette[upper];
-  rgba(pixels, offset, interpolate_colors(c1, c2, i % 1.0))
+  plot(pixels, offset, interpolate_colors(c1, c2, i % 1.0))
 }
 
-fn rgba(pixel: &mut [u8], offset: usize, color: Color) -> usize {
+fn plot(pixel: &mut [u8], offset: usize, color: Color) -> usize {
   let (red, green, blue) = color;
   let mut o = offset;
   pixel[o] = red;

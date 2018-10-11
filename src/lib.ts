@@ -41,7 +41,7 @@ export function calculatePixel(maxSteps: number, real: number, imaginary: number
 
 function colorize(palette: Color[], maxSteps: number, index: number, rr: number, ii: number, pixels: Uint8Array, offset: number): number {
   if (index === IN_MANDELBROT_SET) {
-    return rgba(pixels, offset, [0, 0, 0])
+    return plot(pixels, offset, [0, 0, 0])
   }
 
   const frac = Math.log2(Math.log2(rr + ii) / 2.0)
@@ -52,10 +52,10 @@ function colorize(palette: Color[], maxSteps: number, index: number, rr: number,
 
   const c1 = palette[lower]
   const c2 = palette[upper]
-  return rgba(pixels, offset, interpolateColors(c1, c2, i % 1.0))
+  return plot(pixels, offset, interpolateColors(c1, c2, i % 1.0))
 }
 
-export function rgba(pixel: Uint8Array, offset: number, color: Color) {
+export function plot(pixel: Uint8Array, offset: number, color: Color) {
   pixel[offset] = color[0]
   offset += 1
   pixel[offset] = color[1]
