@@ -4,6 +4,10 @@ import * as js from './lib'
 
 const wasm = import('mandelbrot')
 
+declare const USE_WASM: boolean
+
+console.log(USE_WASM)
+
 window.addEventListener('load', async () => {
   // Retrieve HTML elements
   const container = document.querySelector('#canvas-container') as HTMLDivElement | null
@@ -18,8 +22,9 @@ window.addEventListener('load', async () => {
   canvas.height = window.innerHeight - 48
 
   // Render the fractal
-  // const calculator = new Calculator('JavaScript', js)
-  const calculator = new Calculator('WebAssembly', await wasm)
+  const module = USE_WASM ? await wasm : js
+  const name = USE_WASM ? 'WebAssembly' : 'JavaScript'
+  const calculator = new Calculator(name, module)
   const fractal = new Fractal(canvas, calculator)
 
   fractal.render()

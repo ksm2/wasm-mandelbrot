@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>WebAssembly Mandelbrot Generator</title>
+  <title><%= USE_WASM ? 'WebAssembly' : 'JavaScript' %> Mandelbrot Generator</title>
   <meta name="description" content="Mandelbrot generator implemented using TypeScript and Rust with WebAssembly">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,7 +14,7 @@
 
 <body>
   <nav>
-    <span>WebAssembly Mandelbrot Generator</span>
+    <span><%= USE_WASM ? 'WebAssembly' : 'JavaScript' %> Mandelbrot Generator</span>
   </nav>
   <div id="canvas-container">
     <canvas></canvas>
