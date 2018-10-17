@@ -17,9 +17,8 @@ window.addEventListener('load', async () => {
   }
 
   // Update canvasses width and height
-  const { offsetWidth: width, offsetHeight: height } = container
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight - 48
+  canvas.width = 1920
+  canvas.height = 1080
 
   // Render the fractal
   const module = USE_WASM ? await wasm : js
@@ -27,10 +26,35 @@ window.addEventListener('load', async () => {
   const calculator = new Calculator(name, module)
   const fractal = new Fractal(canvas, calculator)
 
-  fractal.render()
+  const now = performance.now()
+  const latencies: number[] = []
+  let then
+  while ((then = performance.now()) < now + 30_000) {
+    fractal.render()
+    latencies.push(performance.now() - then)
+  }
+  const end = performance.now()
 
-  window.addEventListener('resize', () => {
-    // Update canvasses width and height
-    fractal.resize(window.innerWidth, window.innerHeight - 48)
-  })
+  latencies.sort()
+
+  const tp = latencies.length / (end - now) * 1000;
+  const sum = latencies.reduce((latency, sum) => latency + sum, 0)
+  const avg = sum / latencies.length
+  const med = latencies[Math.floor(latencies.length / 2)]
+
+  console.log(`
+Measurement for ${calculator.name}
+===============
+
+Total Time:  ${(end - now).toFixed(2)} ms
+Count:       ${latencies.length}
+Latency avg: ${avg.toFixed(2)} ms 
+Latency med: ${med.toFixed(2)} ms 
+Throughput:  ${tp.toFixed(2)} 1/s 
+`)
+
+  // window.addEventListener('resize', () => {
+  //   // Update canvasses width and height
+  //   fractal.resize(window.innerWidth, window.innerHeight - 48)
+  // })
 })

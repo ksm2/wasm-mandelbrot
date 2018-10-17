@@ -8,5 +8,6 @@ module.exports = common.map(config => merge(config, {
 
   devServer: {
     contentBase: './dist',
+    host: '192.168.113.141',
   },
 }))

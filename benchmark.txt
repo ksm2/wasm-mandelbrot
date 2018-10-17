@@ -1,0 +1,63 @@
+Chrome
+
+Measurement for JavaScript
+==========================
+
+Total Time:  30273.20 ms
+Count:       54
+Latency avg: 560.61 ms
+Latency med: 556.70 ms
+Throughput:  1.78 1/s
+
+
+Measurement for WebAssembly
+===========================
+
+Total Time:  30181.60 ms
+Count:       76
+Latency avg: 395.88 ms
+Latency med: 387.50 ms
+Throughput:  2.52 1/s
+
+
+Firefox
+
+Measurement for JavaScript
+==========================
+
+Total Time:  30179.00 ms
+Count:       53
+Latency avg: 569.40 ms
+Latency med: 558.00 ms
+Throughput:  1.76 1/s
+
+
+Measurement for WebAssembly
+===========================
+
+Total Time:  30131.00 ms
+Count:       91
+Latency avg: 331.07 ms
+Latency med: 329.00 ms
+Throughput:  3.02 1/s
+
+
+Safari
+
+Measurement for JavaScript
+==========================
+
+Total Time:  30807.00 ms
+Count:       31
+Latency avg: 993.77 ms
+Latency med: 984.00 ms
+Throughput:  1.01 1/s
+
+Measurement for WebAssembly
+===========================
+
+Total Time:  30065.00 ms
+Count:       102
+Latency avg: 294.75 ms
+Latency med: 293.00 ms
+Throughput:  3.39 1/s
